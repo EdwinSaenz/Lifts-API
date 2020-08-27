@@ -2,9 +2,9 @@ use Mix.Config
 
 # Configure your database
 config :lifts_api, LiftsApi.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "lifts_api_dev",
+  username: "lifter",
+  password: "unicorns",
+  database: "lifts_dev",
   hostname: "db",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
