@@ -7,16 +7,16 @@
 # General application configuration
 use Mix.Config
 
-config :lifts_api,
-  ecto_repos: [LiftsApi.Repo]
+config :lifts,
+  ecto_repos: [Lifts.Repo]
 
 # Configures the endpoint
-config :lifts_api, LiftsApiWeb.Endpoint,
+config :lifts, LiftsWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "WQchKs687nA2d9+OtZ7IXfCASs2ijrnwkiix9Zzbrxh05cV1ZEhtBhQ2ZQVNEfit",
-  render_errors: [view: LiftsApiWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: LiftsApi.PubSub,
-  live_view: [signing_salt: "VCQv9lk6"]
+  secret_key_base: "yJf+e7wbl2+i1ZjS8HrOOZcccEo3lyhLKDQu5Q4OXH8N7kLgLkZ4b0ZS2AqHazun",
+  render_errors: [view: LiftsWeb.ErrorView, accepts: ~w(json), layout: false],
+  pubsub_server: Lifts.PubSub,
+  live_view: [signing_salt: "+ev09kj2"]
 
 # Configures Elixir's Logger
 config :logger, :console,

@@ -1,12 +1,12 @@
-defmodule LiftsApiWeb do
+defmodule LiftsWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use LiftsApiWeb, :controller
-      use LiftsApiWeb, :view
+      use LiftsWeb, :controller
+      use LiftsWeb, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,19 +19,19 @@ defmodule LiftsApiWeb do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: LiftsApiWeb
+      use Phoenix.Controller, namespace: LiftsWeb
 
       import Plug.Conn
-      import LiftsApiWeb.Gettext
-      alias LiftsApiWeb.Router.Helpers, as: Routes
+      import LiftsWeb.Gettext
+      alias LiftsWeb.Router.Helpers, as: Routes
     end
   end
 
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/lifts_api_web/templates",
-        namespace: LiftsApiWeb
+        root: "lib/lifts_web/templates",
+        namespace: LiftsWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
@@ -53,21 +53,18 @@ defmodule LiftsApiWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import LiftsApiWeb.Gettext
+      import LiftsWeb.Gettext
     end
   end
 
   defp view_helpers do
     quote do
-      # Use all HTML functionality (forms, tags, etc)
-      use Phoenix.HTML
-
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
-      import LiftsApiWeb.ErrorHelpers
-      import LiftsApiWeb.Gettext
-      alias LiftsApiWeb.Router.Helpers, as: Routes
+      import LiftsWeb.ErrorHelpers
+      import LiftsWeb.Gettext
+      alias LiftsWeb.Router.Helpers, as: Routes
     end
   end
 

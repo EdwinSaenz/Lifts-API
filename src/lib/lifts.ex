@@ -1,6 +1,6 @@
-defmodule LiftsApi do
+defmodule Lifts do
   @moduledoc """
-  LiftsApi keeps the contexts that define your domain
+  Lifts keeps the contexts that define your domain
   and business logic.
 
   Contexts are also responsible for managing your data, regardless

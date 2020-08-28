@@ -1,4 +1,4 @@
-# LiftsApi
+# Lifts
 
 To start your Phoenix server:
 

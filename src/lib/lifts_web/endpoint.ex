@@ -1,16 +1,16 @@
-defmodule LiftsApiWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :lifts_api
+defmodule LiftsWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :lifts
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
     store: :cookie,
-    key: "_lifts_api_key",
-    signing_salt: "pL4hQOe+"
+    key: "_lifts_key",
+    signing_salt: "RiLn0Kve"
   ]
 
-  socket "/socket", LiftsApiWeb.UserSocket,
+  socket "/socket", LiftsWeb.UserSocket,
     websocket: true,
     longpoll: false
 
@@ -22,17 +22,15 @@ defmodule LiftsApiWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :lifts_api,
+    from: :lifts,
     gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
-    socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
-    plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :lifts_api
+    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :lifts
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,
@@ -50,5 +48,5 @@ defmodule LiftsApiWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug LiftsApiWeb.Router
+  plug LiftsWeb.Router
 end

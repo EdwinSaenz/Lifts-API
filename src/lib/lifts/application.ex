@@ -1,4 +1,4 @@
-defmodule LiftsApi.Application do
+defmodule Lifts.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -8,27 +8,27 @@ defmodule LiftsApi.Application do
   def start(_type, _args) do
     children = [
       # Start the Ecto repository
-      LiftsApi.Repo,
+      Lifts.Repo,
       # Start the Telemetry supervisor
-      LiftsApiWeb.Telemetry,
+      LiftsWeb.Telemetry,
       # Start the PubSub system
-      {Phoenix.PubSub, name: LiftsApi.PubSub},
+      {Phoenix.PubSub, name: Lifts.PubSub},
       # Start the Endpoint (http/https)
-      LiftsApiWeb.Endpoint
-      # Start a worker by calling: LiftsApi.Worker.start_link(arg)
-      # {LiftsApi.Worker, arg}
+      LiftsWeb.Endpoint
+      # Start a worker by calling: Lifts.Worker.start_link(arg)
+      # {Lifts.Worker, arg}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: LiftsApi.Supervisor]
+    opts = [strategy: :one_for_one, name: Lifts.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
   def config_change(changed, _new, removed) do
-    LiftsApiWeb.Endpoint.config_change(changed, removed)
+    LiftsWeb.Endpoint.config_change(changed, removed)
     :ok
   end
 end
