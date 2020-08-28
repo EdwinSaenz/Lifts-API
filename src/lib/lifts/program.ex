@@ -7,6 +7,8 @@ defmodule Lifts.Program do
     field :name, :string
 
     timestamps()
+
+    has_many :workout_days, Lifts.WorkoutDay
   end
 
   @doc false
