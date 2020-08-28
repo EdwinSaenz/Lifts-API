@@ -7,6 +7,7 @@ defmodule LiftsWeb.Router do
 
   scope "/api", LiftsWeb do
     pipe_through :api
+    resources "/programs", ProgramController, only: [:index]
   end
 
   # Enables LiveDashboard only for development
