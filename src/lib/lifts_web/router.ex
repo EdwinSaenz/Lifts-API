@@ -7,7 +7,9 @@ defmodule LiftsWeb.Router do
 
   scope "/api", LiftsWeb do
     pipe_through :api
-    resources "/programs", ProgramController, only: [:index, :show]
+    resources "/programs", ProgramController, only: [:index, :show] do
+      resources "/workoutDays", WorkoutDayController, only: [:create]
+    end
   end
 
   # Enables LiveDashboard only for development

@@ -7,4 +7,10 @@ defmodule LiftsWeb.FallbackController do
     |> put_view(LiftsWeb.ErrorView)
     |> render(:"404")
   end
+
+  def call(conn, {:error, %Ecto.Changeset{} = changeset}) do
+    conn
+    |> put_status(:unprocessable_entity)
+    |> render(LiftsWeb.ChangesetView, "error.json", changeset: changeset)
+  end
 end

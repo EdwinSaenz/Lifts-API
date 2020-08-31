@@ -5,7 +5,7 @@ defmodule LiftsWeb.ProgramController do
   action_fallback LiftsWeb.FallbackController
 
   def index(conn, _params) do
-    programs = Programs.list_all()
+    programs = Programs.list_programs()
 
     conn
     |> render("index.json", programs: programs)

@@ -14,7 +14,7 @@ defmodule Lifts.WorkoutDay do
   @doc false
   def changeset(workout_day, attrs) do
     workout_day
-    |> cast(attrs, [:name, :order])
-    |> validate_required([:name, :order])
+    |> cast(attrs, [:name, :order, :program_id])
+    |> validate_required([:name, :order, :program_id])
   end
 end
