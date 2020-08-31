@@ -7,7 +7,7 @@ defmodule LiftsWeb.Router do
 
   scope "/api", LiftsWeb do
     pipe_through :api
-    resources "/programs", ProgramController, only: [:index, :show] do
+    resources "/programs", ProgramController, only: [:index, :create, :show] do
       resources "/workoutDays", WorkoutDayController, only: [:create]
     end
   end

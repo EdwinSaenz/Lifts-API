@@ -16,5 +16,6 @@ defmodule Lifts.WorkoutDay do
     workout_day
     |> cast(attrs, [:name, :order, :program_id])
     |> validate_required([:name, :order, :program_id])
+    |> unique_constraint([:name, :program_id])
   end
 end
