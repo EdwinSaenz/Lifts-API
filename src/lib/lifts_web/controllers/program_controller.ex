@@ -15,6 +15,7 @@ defmodule LiftsWeb.ProgramController do
     with {:ok, %Program{id: program_id}} <- Programs.create_program(params),
          {:ok, program} <- Programs.get_program(program_id) do
       conn
+      |> put_status(:created)
       |> render("show.json", program: program)
     end
   end

@@ -9,6 +9,7 @@ defmodule Lifts.WorkoutDay do
     timestamps()
 
     belongs_to :program, Lifts.Program
+    has_many :exercises, Lifts.Exercise
   end
 
   @doc false
