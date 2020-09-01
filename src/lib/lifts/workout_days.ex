@@ -4,9 +4,7 @@ defmodule Lifts.WorkoutDays do
   """
 
   import Ecto.Query, warn: false
-  alias Lifts.Repo
-
-  alias Lifts.WorkoutDay
+  alias Lifts.{Repo, WorkoutDay}
 
   @doc """
   Returns the list of workout_days.
@@ -37,10 +35,13 @@ defmodule Lifts.WorkoutDays do
   """
   def get_workout_day(id) do
     case WorkoutDay |> Repo.get(id) do
-      nil -> {:error, :not_found}
+      nil ->
+        {:error, :not_found}
+
       workout_day ->
-        workout_day = workout_day
-        |> Repo.preload(:exercises)
+        workout_day =
+          workout_day
+          |> Repo.preload(:exercises)
 
         {:ok, workout_day}
     end
@@ -59,9 +60,34 @@ defmodule Lifts.WorkoutDays do
 
   """
   def create_workout_day(attrs \\ %{}) do
-    %WorkoutDay{}
-    |> WorkoutDay.changeset(attrs)
-    |> Repo.insert()
+    result =
+      %WorkoutDay{}
+      |> WorkoutDay.changeset(attrs)
+      |> Repo.insert()
+
+    case result do
+      {:ok, workout_day} ->
+        workout_day |> set_order
+
+      _ ->
+        result
+    end
+  end
+
+  defp set_order(%WorkoutDay{} = workout_day) do
+    case WorkoutDay
+         |> where([wd], wd.program_id == ^workout_day.program_id)
+         |> where([wd], not is_nil(wd.order))
+         |> last(:order)
+         |> Repo.one() do
+      %WorkoutDay{order: order} ->
+        workout_day
+        |> update_workout_day(%{order: order + 1})
+
+      nil ->
+        workout_day
+        |> update_workout_day(%{order: 1})
+    end
   end
 
   @doc """

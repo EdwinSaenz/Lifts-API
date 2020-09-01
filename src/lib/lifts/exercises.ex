@@ -55,9 +55,34 @@ defmodule Lifts.Exercises do
 
   """
   def create_exercise(attrs \\ %{}) do
-    %Exercise{}
-    |> Exercise.changeset(attrs)
-    |> Repo.insert()
+    result =
+      %Exercise{}
+      |> Exercise.changeset(attrs)
+      |> Repo.insert()
+
+    case result do
+      {:ok, exercise} ->
+        exercise |> set_order
+
+      _ ->
+        result
+    end
+  end
+
+  defp set_order(%Exercise{} = exercise) do
+    case Exercise
+         |> where([e], e.workout_day_id == ^exercise.workout_day_id)
+         |> where([e], not is_nil(e.order))
+         |> last(:order)
+         |> Repo.one() do
+      %Exercise{order: order} ->
+        exercise
+        |> update_exercise(%{order: order + 1})
+
+      nil ->
+        exercise
+        |> update_exercise(%{order: 1})
+    end
   end
 
   @doc """

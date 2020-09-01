@@ -11,5 +11,6 @@ defmodule Lifts.Repo.Migrations.CreateWorkoutDays do
       add :program_id, references(:programs)
     end
 
+    create unique_index(:workout_days, [:name, :program_id])
   end
 end

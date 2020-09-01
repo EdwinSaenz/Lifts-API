@@ -5,7 +5,7 @@ defmodule Lifts.Repo.Migrations.CreateProgram do
     create table(:programs) do
       add :name, :string
 
-      timestamps
+      timestamps()
     end
 
     create unique_index(:programs, [:name])

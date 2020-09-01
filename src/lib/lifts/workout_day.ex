@@ -16,7 +16,8 @@ defmodule Lifts.WorkoutDay do
   def changeset(workout_day, attrs) do
     workout_day
     |> cast(attrs, [:name, :order, :program_id])
-    |> validate_required([:name, :order, :program_id])
+    |> validate_required([:name, :program_id])
     |> unique_constraint([:name, :program_id])
+    |> foreign_key_constraint(:program_id)
   end
 end
