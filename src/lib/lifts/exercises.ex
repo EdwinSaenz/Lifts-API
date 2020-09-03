@@ -4,9 +4,7 @@ defmodule Lifts.Exercises do
   """
 
   import Ecto.Query, warn: false
-  alias Lifts.Repo
-
-  alias Lifts.Exercise
+  alias Lifts.{Repo, Exercise, Set}
 
   @doc """
   Returns the list of exercises.
@@ -37,8 +35,15 @@ defmodule Lifts.Exercises do
   """
   def get_exercise(id) do
     case Exercise |> Repo.get(id) do
-      nil -> {:error, :not_found}
-      exercise -> {:ok, exercise}
+      nil ->
+        {:error, :not_found}
+
+      exercise ->
+        exercise =
+          exercise
+          |> Repo.preload(sets: from(s in Set, order_by: s.order))
+
+        {:ok, exercise}
     end
   end
 

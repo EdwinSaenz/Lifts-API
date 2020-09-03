@@ -4,9 +4,7 @@ defmodule Lifts.Programs do
   """
 
   import Ecto.Query, warn: false
-  alias Lifts.Repo
-
-  alias Lifts.Program
+  alias Lifts.{Repo, Program, WorkoutDay}
 
   @doc """
   Returns the list of programs.
@@ -37,10 +35,14 @@ defmodule Lifts.Programs do
   """
   def get_program(id) do
     case Program |> Repo.get(id) do
-      nil -> {:error, :not_found}
+      nil ->
+        {:error, :not_found}
+
       program ->
-        program = program
-        |> Repo.preload(:workout_days)
+        program =
+          program
+          |> Repo.preload(workout_days: from(wd in WorkoutDay, order_by: wd.order))
+
         {:ok, program}
     end
   end

@@ -4,7 +4,7 @@ defmodule Lifts.WorkoutDays do
   """
 
   import Ecto.Query, warn: false
-  alias Lifts.{Repo, WorkoutDay}
+  alias Lifts.{Repo, WorkoutDay, Exercise}
 
   @doc """
   Returns the list of workout_days.
@@ -41,7 +41,7 @@ defmodule Lifts.WorkoutDays do
       workout_day ->
         workout_day =
           workout_day
-          |> Repo.preload(:exercises)
+          |> Repo.preload(exercises: from(e in Exercise, order_by: e.order))
 
         {:ok, workout_day}
     end

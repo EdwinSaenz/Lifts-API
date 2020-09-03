@@ -16,7 +16,9 @@ defmodule LiftsWeb.Router do
       resources "/exercises", ExerciseController, only: [:create]
     end
 
-    resources "/exercises", ExerciseController, only: [:show]
+    resources "/exercises", ExerciseController, only: [:show] do
+      resources "/sets", SetController, only: [:create]
+    end
   end
 
   # Enables LiveDashboard only for development

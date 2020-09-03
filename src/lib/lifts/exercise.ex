@@ -9,6 +9,7 @@ defmodule Lifts.Exercise do
     timestamps()
 
     belongs_to :workout_day, Lifts.WorkoutDay
+    has_many :sets, Lifts.Set
   end
 
   def changeset(exercise, attrs) do
