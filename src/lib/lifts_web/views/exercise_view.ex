@@ -4,7 +4,7 @@ defmodule LiftsWeb.ExerciseView do
 
   def render("show.json", %{exercise: exercise}) do
     exercise
-    |> render_one(ExerciseView, "exercise_with_sets.json")
+    |> render_one(ExerciseView, "exercise_with_set_history.json")
   end
 
   def render("exercise.json", %{exercise: exercise}) do
@@ -15,14 +15,14 @@ defmodule LiftsWeb.ExerciseView do
     }
   end
 
-  def render("exercise_with_sets.json", %{exercise: exercise}) do
+  def render("exercise_with_set_history.json", %{exercise: exercise}) do
     %{
       id: exercise.id,
       name: exercise.name,
       order: exercise.order,
-      sets:
-        exercise.sets
-        |> render_many(SetView, "set.json")
+      history:
+        exercise.set_history
+        |> render_many(SetView, "day_sets.json", as: :day_sets)
     }
   end
 end

@@ -41,10 +41,44 @@ defmodule Lifts.Exercises do
       exercise ->
         exercise =
           exercise
-          |> Repo.preload(sets: from(s in Set, order_by: s.order))
+          |> Map.put_new(:set_history, get_set_history(exercise.id))
 
         {:ok, exercise}
     end
+  end
+
+  def get_set_history(exercise_id) do
+    from(
+      s in Set,
+      where: s.exercise_id == ^exercise_id,
+      group_by: [
+        fragment("date_trunc('day', ?)", s.inserted_at)
+      ],
+      select: %{
+        day: fragment("date_trunc('day', ?)", s.inserted_at),
+        sets:
+          fragment(
+            "json_agg(
+              json_build_object(
+                'id', ?,
+                'weight', ?,
+                'repetitions', ?,
+                'is_weighted', ?,
+                'order', ?)
+              order by ?) AS sets",
+            s.id,
+            s.weight,
+            s.repetitions,
+            s.is_weighted,
+            s.order,
+            s.order
+          )
+      },
+      order_by: [
+        desc: fragment("date_trunc('day', ?)", s.inserted_at)
+      ]
+    )
+    |> Repo.all()
   end
 
   @doc """
