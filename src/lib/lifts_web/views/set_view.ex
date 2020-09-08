@@ -21,7 +21,7 @@ defmodule LiftsWeb.SetView do
       id: set.id,
       order: set.order,
       repetitions: set.repetitions,
-      is_weighted: set.is_weighted
+      isWeighted: set.is_weighted
     }
 
     case set.is_weighted do
@@ -35,11 +35,11 @@ defmodule LiftsWeb.SetView do
       id: set["id"],
       order: set["order"],
       repetitions: set["repetitions"],
-      is_weighted: set["is_weighted"]
+      isWeighted: set["is_weighted"]
     }
 
     case set["is_weighted"] do
-      true -> %{set | "weight" => set["weight"]}
+      true -> Map.put_new(set_to_render, "weight", set["weight"])
       _ -> set_to_render
     end
   end

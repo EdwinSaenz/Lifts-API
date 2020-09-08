@@ -70,8 +70,13 @@ defmodule Lifts.Sets do
   end
 
   defp set_order(%Set{} = set) do
+    today = Date.utc_today()
+    tomorrow = today |> Date.add(1)
+
     case Set
          |> where([e], e.exercise_id == ^set.exercise_id)
+         |> where([e], fragment("?::date", e.inserted_at) >= ^today)
+         |> where([e], fragment("?::date", e.inserted_at) < ^tomorrow)
          |> where([e], not is_nil(e.order))
          |> last(:order)
          |> Repo.one() do
