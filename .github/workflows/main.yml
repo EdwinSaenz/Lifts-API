@@ -1,5 +1,10 @@
 name: Deploy to Azure
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  watch:
+    types: [started]
 
 jobs:
   build:
